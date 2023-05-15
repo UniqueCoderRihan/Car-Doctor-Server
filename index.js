@@ -38,16 +38,17 @@ async function run() {
         const id = req.params.id;
         
         const query = {_id: new ObjectId(id) }
-        const options = {
-            projection: {_id:0,title:1,price:1}
-        }
-        const result = await serviceCollection.findOne(query,options)
+        // const options = {
+        //     projection: {_id:0,title:1,price:1,img:1}
+        // }
+        const result = await serviceCollection.findOne(query)
         res.send(result)
     })
 
     // bookings
     app.post('/bookings',async (req,res)=>{
         const booking = req.body;
+        console.log(booking)
         const result = await bookingCollection.insertOne(booking);
         res.send(result)
     })
