@@ -47,7 +47,7 @@ async function run() {
 
     // all cart for users 
     app.get('/bookings',async (req,res)=>{
-      console.log(req.query);
+      // console.log(req.query);
       let query = {};
       if(req.query?.email){
         query = {customerEmail: req.query?.email}
@@ -63,6 +63,14 @@ async function run() {
         console.log(booking)
         const result = await bookingCollection.insertOne(booking);
         res.send(result)
+    })
+
+    app.delete('/bookings/:id',async(req,res)=>{
+      const id = req.params.id;
+      console.log(id)
+      const query = {_id: new ObjectId(id)};
+      const result = await bookingCollection.deleteOne(query);
+      res.send(result)
     })
 
     await client.db("admin").command({ ping: 1 });
